@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+//SELECT * FROM worker K INNER JOIN worker_inf KY ON K.id_worker=KY.id_worker; (Veri cekme)
 //CalisanIslemleri
 /**
  *
@@ -19,9 +19,37 @@ public class EmployeeTransactions {
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     
+    public ArrayList<Woker> workerExtraction(){
+        ArrayList<Woker> output = new ArrayList<Woker>();
+        try{
+            statement = con.createStatement();
+            String query = "SELECT * FROM worker K INNER JOIN worker_inf KY ON K.id_worker=KY.id_worker";
+            
+            ResultSet rs = statement.executeQuery(query);
+            
+            while(rs.next()){
+                int id = rs.getInt("id_worker");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String departmant = rs.getString("departmant");
+                String gender = rs.getString("gender");
+                int age = rs.getInt("age");
+                String adres = rs.getString("adress");
+                String tel_no = rs.getString("tel_no");
+                
+                output.add(new Woker(id,name,surname,departmant,gender,age,adres,tel_no));
+            }
+            return output;
+        }catch(SQLException ex){
+            
+            Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE,null,ex);
+            return null;
+        }
+    }
+    
     public Boolean logIn(int id , String password , String departmant){
         
-        String query = "Select  * From workers where id = ? and password = ? and departmant = ?";
+        String query = "Select * From worker where id_worker = ? and password = ? and departmant=?";
         
         try{
             preparedStatement = con.prepareStatement(query);

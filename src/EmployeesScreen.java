@@ -1,3 +1,9 @@
+
+import java.util.ArrayList;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -9,12 +15,20 @@
  */
 public class EmployeesScreen extends javax.swing.JDialog {
 
+    DefaultTableModel model;
+    
+    EmployeeTransactions transactions = new EmployeeTransactions();
+    
     /**
      * Creates new form EmployeesScreen
      */
     public EmployeesScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        model = (DefaultTableModel) workers_table.getModel();
+        
+        workerShow();
     }
 
     /**
@@ -49,17 +63,14 @@ public class EmployeesScreen extends javax.swing.JDialog {
 
         workers_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Id", "Name", "Surname", "Age", "Adress", "Telephone", "Email", "Departman"
+                "Id", "Name", "Surname", "Gender", "Age", "Departmant", "Adress", "Telephone"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -67,6 +78,16 @@ public class EmployeesScreen extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(workers_table);
+        if (workers_table.getColumnModel().getColumnCount() > 0) {
+            workers_table.getColumnModel().getColumn(0).setResizable(false);
+            workers_table.getColumnModel().getColumn(1).setResizable(false);
+            workers_table.getColumnModel().getColumn(2).setResizable(false);
+            workers_table.getColumnModel().getColumn(3).setResizable(false);
+            workers_table.getColumnModel().getColumn(4).setResizable(false);
+            workers_table.getColumnModel().getColumn(5).setResizable(false);
+            workers_table.getColumnModel().getColumn(6).setResizable(false);
+            workers_table.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Name:");
@@ -115,33 +136,31 @@ public class EmployeesScreen extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(email_area, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                            .addComponent(telephone_area)
-                            .addComponent(adress_area)
-                            .addComponent(age_area)
-                            .addComponent(surname_area)
-                            .addComponent(name_area)
-                            .addComponent(departmant_area, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(1324, 1324, 1324)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
-                .addContainerGap())
+                    .addComponent(email_area, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(telephone_area)
+                    .addComponent(adress_area)
+                    .addComponent(age_area)
+                    .addComponent(surname_area)
+                    .addComponent(name_area)
+                    .addComponent(departmant_area, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(1324, 1324, 1324)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +194,8 @@ public class EmployeesScreen extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(departmant_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(111, 111, 111)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -186,7 +204,25 @@ public class EmployeesScreen extends javax.swing.JDialog {
     private void name_areaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name_areaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_name_areaActionPerformed
-
+    
+    
+    public void workerShow(){
+        model.setRowCount(0);
+        ArrayList<Woker> workers = new ArrayList<Woker>();
+        
+        workers = transactions.workerExtraction();
+        
+        if(workers != null){
+            for(Woker woker : workers){
+                Object[] beAdded = {woker.getId(),woker.getName(),woker.getSurname(),woker.getGender(),woker.getAge(),woker.getDepartmant(),woker.getAdress(),woker.getTel_no()};
+                
+                model.addRow(beAdded);
+                
+                
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
