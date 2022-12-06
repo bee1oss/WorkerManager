@@ -20,7 +20,7 @@ public class EmployeeTransactions {
     private PreparedStatement preparedStatement = null;
     
 
-    
+
     public void workerUpdate(int id,String new_name,String new_surname,String new_passw,String new_departmant,String new_gender,int new_age,String new_adress,String new_tel_no){
         String query1 = "Update workers set name=? , surname=? , password=? , departmant=? ,gender=? , age=? , adress=? , tel_no=? where id_worker=?";
         

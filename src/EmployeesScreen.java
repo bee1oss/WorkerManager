@@ -388,6 +388,14 @@ public class EmployeesScreen extends javax.swing.JDialog {
 
     private void screenRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenRefreshActionPerformed
         // TODO add your handling code here:
+        name_area.setText("");
+        surname_area.setText("");
+        password_area.setText("");
+        departmant_area.setText("");
+        gender_area.setText("");
+        age_area.setText("");
+        adress_area.setText("");
+        telephone_area.setText("");
 
 
         workerShow();
