@@ -171,7 +171,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Password:");
 
-        screenRefresh.setText("Delete");
+        screenRefresh.setText("Refresh");
         screenRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 screenRefreshActionPerformed(evt);
