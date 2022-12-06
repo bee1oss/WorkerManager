@@ -293,8 +293,8 @@ public class EmployeesScreen extends javax.swing.JDialog {
         String adress = adress_area.getText();
         String tel_no = telephone_area.getText();
         
-        transactions.workerAdd(name, surname, password, departmant);
-        transactions.worker_InfAdd(gender, ageInt, adress, tel_no);
+        transactions.workerAdd(name, surname, password, departmant,gender, ageInt, adress, tel_no);
+
         workerShow();
         
         massage_write.setText("Registration new user succesfull");
