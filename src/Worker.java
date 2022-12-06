@@ -9,26 +9,35 @@
  */
 
 
-public class Woker {
+public class Worker {
     private int id;
     private String name;
     private String surname;
-    
+    private String passw;
     private String departmant;
     private String gender;
     private int age;
     private String adress;
     private String tel_no;
 
-    public Woker(int id, String name, String surname,String departmant, String gender, int age,  String adress, String tel_no) {
+    public Worker(int id, String name, String surname,String passw,String departmant, String gender, int age,  String adress, String tel_no) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.passw = passw;
         this.gender = gender;
         this.age = age;
         this.departmant = departmant;
         this.adress = adress;
         this.tel_no = tel_no;
+    }
+
+    public String getPassw() {
+        return passw;
+    }
+
+    public void setPassw(String passw) {
+        this.passw = passw;
     }
 
     

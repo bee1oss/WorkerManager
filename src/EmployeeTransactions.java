@@ -19,8 +19,86 @@ public class EmployeeTransactions {
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     
-    public ArrayList<Woker> workerExtraction(){
-        ArrayList<Woker> output = new ArrayList<Woker>();
+    
+    public void workerUpdate(int id,String new_name,String new_surname,String new_passw,String new_departmant,String new_gender,int new_age,String new_adress,String new_tel_no){
+        String query1 = "Update worker set name=? , surname=? , password=? , departmant=? where id_worker=?";
+        
+        try {
+            preparedStatement = con.prepareStatement(query1);
+            
+            preparedStatement.setString(1, new_name);
+            preparedStatement.setString(2, new_surname);
+            preparedStatement.setString(3, new_passw);
+            preparedStatement.setString(4, new_departmant);
+            preparedStatement.setInt(5, id);
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String query2 = "Update worker_inf set gender=? , age=? , adress=? , tel_no=? where id_worker=?";
+        
+        try {
+            preparedStatement = con.prepareStatement(query2);
+            
+            preparedStatement.setString(1, new_gender);
+            preparedStatement.setInt(2, new_age);
+            preparedStatement.setString(3, new_adress);
+            preparedStatement.setString(4, new_tel_no);
+            preparedStatement.setInt(5, id);
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+   public void worker_InfAdd(String gender,int age,String adress,String tel_no){
+        
+        String query2 = "Insert Into worker_inf(gender,age,adress,tel_no) VALUES(?,?,?,?)";
+        
+       try{
+           
+           preparedStatement = con.prepareStatement(query2);
+
+           
+           preparedStatement.setString(1, gender);
+           preparedStatement.setInt(2, age);
+           preparedStatement.setString(3, adress);
+           preparedStatement.setString(4, tel_no);
+           
+           preparedStatement.executeUpdate();
+           
+       }catch(SQLException ex){
+           Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE,null,ex);
+       }
+    }
+    public void workerAdd(String name,String surname,String password,String departmant){
+        String query1 = "Insert Into worker(name,surname,password,departmant) VALUES(?,?,?,?)";
+        
+        
+       try{
+           preparedStatement = con.prepareStatement(query1);
+           
+           
+           preparedStatement.setString(1, name);
+           preparedStatement.setString(2, surname);
+           preparedStatement.setString(3, password);
+           preparedStatement.setString(4, departmant);
+           
+           preparedStatement.executeUpdate();
+           
+       }catch(SQLException ex){
+           Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE,null,ex);
+       }
+    }
+
+
+    //Showing all workers
+    public ArrayList<Worker> workerExtraction(){
+        ArrayList<Worker> output = new ArrayList<Worker>();
         try{
             statement = con.createStatement();
             String query = "SELECT * FROM worker K INNER JOIN worker_inf KY ON K.id_worker=KY.id_worker";
@@ -31,13 +109,14 @@ public class EmployeeTransactions {
                 int id = rs.getInt("id_worker");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
+                String passw = rs.getString("password");
                 String departmant = rs.getString("departmant");
                 String gender = rs.getString("gender");
                 int age = rs.getInt("age");
                 String adres = rs.getString("adress");
                 String tel_no = rs.getString("tel_no");
                 
-                output.add(new Woker(id,name,surname,departmant,gender,age,adres,tel_no));
+                output.add(new Worker(id,name,surname,passw,departmant,gender,age,adres,tel_no));
             }
             return output;
         }catch(SQLException ex){
@@ -46,7 +125,7 @@ public class EmployeeTransactions {
             return null;
         }
     }
-    
+    //for Login
     public Boolean logIn(int id , String password , String departmant){
         
         String query = "Select * From worker where id_worker = ? and password = ? and departmant=?";
@@ -66,6 +145,7 @@ public class EmployeeTransactions {
         }
     return false;
     }
+    //connection
     public EmployeeTransactions(){
         //constructor for connection
          String url = "jdbc:mysql://" + Database.host + ":" + Database.port + "/" + Database.db_name;
