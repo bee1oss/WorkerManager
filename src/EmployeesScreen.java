@@ -388,6 +388,9 @@ public class EmployeesScreen extends javax.swing.JDialog {
 
     private void screenRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenRefreshActionPerformed
         // TODO add your handling code here:
+
+
+        workerShow();
     }//GEN-LAST:event_screenRefreshActionPerformed
 
     private void workerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workerDeleteActionPerformed
@@ -477,7 +480,6 @@ public class EmployeesScreen extends javax.swing.JDialog {
     private javax.swing.JTextField surname_area;
     private javax.swing.JTextField telephone_area;
     private javax.swing.JButton workerDelete;
-    private javax.swing.JButton workerDelete1;
     private javax.swing.JButton workerUpdate;
     private javax.swing.JTable workers_table;
     // End of variables declaration//GEN-END:variables
