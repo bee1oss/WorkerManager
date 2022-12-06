@@ -21,7 +21,7 @@ public class EmployeeTransactions {
     
     
     public void workerUpdate(int id,String new_name,String new_surname,String new_passw,String new_departmant,String new_gender,int new_age,String new_adress,String new_tel_no){
-        String query1 = "Update worker set name=? , surname=? , password=? , departmant=? where id_worker=?";
+        String query1 = "Update workers set name=? , surname=? , password=? , departmant=? ,gender=? , age=? , adress=? , tel_no=? where id_worker=?";
         
         try {
             preparedStatement = con.prepareStatement(query1);
@@ -30,32 +30,33 @@ public class EmployeeTransactions {
             preparedStatement.setString(2, new_surname);
             preparedStatement.setString(3, new_passw);
             preparedStatement.setString(4, new_departmant);
-            preparedStatement.setInt(5, id);
+            preparedStatement.setString(5, new_gender);
+            preparedStatement.setInt(6, new_age);
+            preparedStatement.setString(7, new_adress);
+            preparedStatement.setString(8, new_tel_no);
+            preparedStatement.setInt(9, id);
             
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String query2 = "Update worker_inf set gender=? , age=? , adress=? , tel_no=? where id_worker=?";
+        /*String query2 = "Update worker_inf set  where id_worker=?";
         
         try {
             preparedStatement = con.prepareStatement(query2);
             
-            preparedStatement.setString(1, new_gender);
-            preparedStatement.setInt(2, new_age);
-            preparedStatement.setString(3, new_adress);
-            preparedStatement.setString(4, new_tel_no);
+
             preparedStatement.setInt(5, id);
             
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     
     
     
-   public void worker_InfAdd(String gender,int age,String adress,String tel_no){
+   /*public void worker_InfAdd(){
         
         String query2 = "Insert Into worker_inf(gender,age,adress,tel_no) VALUES(?,?,?,?)";
         
@@ -74,9 +75,9 @@ public class EmployeeTransactions {
        }catch(SQLException ex){
            Logger.getLogger(EmployeeTransactions.class.getName()).log(Level.SEVERE,null,ex);
        }
-    }
-    public void workerAdd(String name,String surname,String password,String departmant){
-        String query1 = "Insert Into worker(name,surname,password,departmant) VALUES(?,?,?,?)";
+    }*/
+    public void workerAdd(String name,String surname,String password,String departmant,String gender,int age,String adress,String tel_no){
+        String query1 = "Insert Into workers(name,surname,password,departmant,gender,age,adress,tel_no) VALUES(?,?,?,?,?,?,?,?)";
         
         
        try{
@@ -87,7 +88,11 @@ public class EmployeeTransactions {
            preparedStatement.setString(2, surname);
            preparedStatement.setString(3, password);
            preparedStatement.setString(4, departmant);
-           
+           preparedStatement.setString(5,gender);
+           preparedStatement.setInt(6,age);
+           preparedStatement.setString(7,adress);
+           preparedStatement.setString(8,tel_no);
+
            preparedStatement.executeUpdate();
            
        }catch(SQLException ex){
@@ -101,7 +106,7 @@ public class EmployeeTransactions {
         ArrayList<Worker> output = new ArrayList<Worker>();
         try{
             statement = con.createStatement();
-            String query = "SELECT * FROM worker K INNER JOIN worker_inf KY ON K.id_worker=KY.id_worker";
+            String query = "SELECT * FROM workers";
             
             ResultSet rs = statement.executeQuery(query);
             
@@ -128,7 +133,7 @@ public class EmployeeTransactions {
     //for Login
     public Boolean logIn(int id , String password , String departmant){
         
-        String query = "Select * From worker where id_worker = ? and password = ? and departmant=?";
+        String query = "Select * From workers where id_worker = ? and password = ? and departmant=?";
         
         try{
             preparedStatement = con.prepareStatement(query);
