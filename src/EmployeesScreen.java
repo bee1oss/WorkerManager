@@ -8,7 +8,7 @@ import javax.swing.table.TableRowSorter;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
+/*It is a some asasd sadece yoruldum amk yeterrrr be yeter nolur duzel artik yaaajkllkjhkjh*/
 /**
  *
  * @author begench
@@ -309,7 +309,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         transactions.workerAdd(name, surname, password, departmant,gender, ageInt, adress, tel_no);
 
         workerShow();
-        
+
         massage_write.setText("Registration new user succesfull");
         
         
@@ -368,6 +368,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
             transactions.workerUpdate(id,name,surname,password,departmant,gender,ageInt,adress,tel_no);
         
             workerShow();
+
         }
     }//GEN-LAST:event_workerUpdateActionPerformed
 
@@ -391,9 +392,9 @@ public class EmployeesScreen extends javax.swing.JDialog {
         name_area.setText("");
         surname_area.setText("");
         password_area.setText("");
-        departmant_area.setText("");
         gender_area.setText("");
         age_area.setText("");
+        departmant_area.setText("");
         adress_area.setText("");
         telephone_area.setText("");
 
