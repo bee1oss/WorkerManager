@@ -8,7 +8,7 @@
  * @author begench
  */
 public class Login extends javax.swing.JFrame {
-    EmployeeTransactions transactions = new EmployeeTransactions();
+    TransactionsForAssistant transactions = new TransactionsForAssistant();
     /**
      * Creates new form Login
      */
@@ -31,7 +31,7 @@ public class Login extends javax.swing.JFrame {
         login_button = new javax.swing.JButton();
         message_login = new javax.swing.JLabel();
         user_pasw = new javax.swing.JPasswordField();
-        ComboBox = new javax.swing.JComboBox<>();
+        chooseComboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,12 +44,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Department");
 
-        user_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_idActionPerformed(evt);
-            }
-        });
-
         login_button.setText("Login");
         login_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,18 +51,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        user_pasw.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_paswActionPerformed(evt);
-            }
-        });
-
-        ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assistant", "Accountant", "Manager" }));
-        ComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxActionPerformed(evt);
-            }
-        });
+        chooseComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Assistant", "Accountant", "Manager" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Password:");
@@ -86,7 +69,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                        .addComponent(chooseComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
                         .addComponent(user_pasw, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(user_id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                     .addComponent(login_button))
@@ -109,7 +92,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(login_button)
@@ -121,48 +104,51 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void user_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_idActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_idActionPerformed
-
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
         // TODO add your handling code here:
         message_login.setText("");
         
         int id = Integer.parseInt(user_id.getText());
         String password = new String(user_pasw.getText());
-        String departmant = ComboBox.getSelectedItem().toString();
+        String departmant = chooseComboBox.getSelectedItem().toString();
         
         
         boolean loginSucces = transactions.logIn(id, password , departmant);
         if(loginSucces && departmant.equals("Assistant")){
             message_login.setText("Login procces succesfull... \n Welcome Assistant");
-            EmployeesScreen employeesScreen = new EmployeesScreen(this,true);
+            EmployeesScreenForAssistant employeesScreenForAssistant = new EmployeesScreenForAssistant(this,true);
             setVisible(false);
-            employeesScreen.setVisible(true);
+            employeesScreenForAssistant.setVisible(true);
             
             System.exit(0);
             
-            //EmployeeScreen employeeScreen = new EmployeeScreen(this, true);
+            
         }else if(loginSucces && departmant.equals("Accountant")){
             
             message_login.setText("Login procces succesfull... \n Welcome Accountant");
+            EmployeesScreenForAccountant employeesScreenForAccountant = new EmployeesScreenForAccountant(this, true);
+            setVisible(false);
+            employeesScreenForAccountant.setVisible(true);
+           
+            System.exit(0);
             
-            //EmployeeScreen employeeScreen = new EmployeeScreen(this, true);
-        }     
+        }
+        else if(loginSucces && departmant.equals("Manager")){
+            
+            message_login.setText("Login procces succesfull... \n Welcome Manager");
+            EmployeeScreenForManager employeeScreenForManager = new EmployeeScreenForManager(this, true);
+            
+            setVisible(false);
+            employeeScreenForManager.setVisible(true);
+           
+            System.exit(0);
+            
+        }
         else{
             message_login.setText("Login procces not succesfull...");
         }
         
     }//GEN-LAST:event_login_buttonActionPerformed
-
-    private void user_paswActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_paswActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_paswActionPerformed
-
-    private void ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,15 +178,13 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBox;
+    private javax.swing.JComboBox<String> chooseComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

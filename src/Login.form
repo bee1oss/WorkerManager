@@ -39,7 +39,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="ComboBox" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="chooseComboBox" alignment="0" pref="0" max="32767" attributes="0"/>
                       <Component id="user_pasw" alignment="0" max="32767" attributes="0"/>
                       <Component id="user_id" alignment="0" pref="90" max="32767" attributes="0"/>
                   </Group>
@@ -69,7 +69,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ComboBox" min="-2" max="-2" attributes="0"/>
+                  <Component id="chooseComboBox" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -99,9 +99,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="user_id">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_idActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="login_button">
       <Properties>
@@ -114,11 +111,8 @@
     <Component class="javax.swing.JLabel" name="message_login">
     </Component>
     <Component class="javax.swing.JPasswordField" name="user_pasw">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_paswActionPerformed"/>
-      </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="ComboBox">
+    <Component class="javax.swing.JComboBox" name="chooseComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -128,9 +122,6 @@
           </StringArray>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboBoxActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

@@ -13,14 +13,14 @@ import javax.swing.table.TableRowSorter;
  *
  * @author begench
  */
-public class EmployeesScreen extends javax.swing.JDialog {
+public class EmployeesScreenForAssistant extends javax.swing.JDialog {
 
     DefaultTableModel model;
     
-    EmployeeTransactions transactions = new EmployeeTransactions();
+    TransactionsForAssistant transactions = new TransactionsForAssistant();
     
 
-    public EmployeesScreen(java.awt.Frame parent, boolean modal) {
+    public EmployeesScreenForAssistant(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -54,10 +54,8 @@ public class EmployeesScreen extends javax.swing.JDialog {
         massage_write = new javax.swing.JLabel();
         search_box = new javax.swing.JTextField();
         workerUpdate = new javax.swing.JButton();
-        password_area = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         screenRefresh = new javax.swing.JButton();
-        workerDelete = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(50, 50, 0, 0));
@@ -67,11 +65,11 @@ public class EmployeesScreen extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id", "Name", "Surname", "Password", "Gender", "Age", "Departmant", "Adress", "Telephone"
+                "Id", "Name", "Surname", "Gender", "Age", "Departmant", "Adress", "Telephone"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,7 +91,6 @@ public class EmployeesScreen extends javax.swing.JDialog {
             workers_table.getColumnModel().getColumn(5).setResizable(false);
             workers_table.getColumnModel().getColumn(6).setResizable(false);
             workers_table.getColumnModel().getColumn(7).setResizable(false);
-            workers_table.getColumnModel().getColumn(8).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -166,11 +163,6 @@ public class EmployeesScreen extends javax.swing.JDialog {
             }
         });
 
-        password_area.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Password:");
-
         screenRefresh.setText("Refresh");
         screenRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,10 +170,10 @@ public class EmployeesScreen extends javax.swing.JDialog {
             }
         });
 
-        workerDelete.setText("Delete");
-        workerDelete.addActionListener(new java.awt.event.ActionListener() {
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workerDeleteActionPerformed(evt);
+                logoutButtonActionPerformed(evt);
             }
         });
 
@@ -196,94 +188,91 @@ public class EmployeesScreen extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel7))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jLabel6)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(password_area)
-                                    .addComponent(telephone_area, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(adress_area, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(age_area, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(surname_area, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(name_area, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(departmant_area)
-                                    .addComponent(gender_area, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(25, 25, 25)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(surname_area, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(name_area, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(telephone_area, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(adress_area, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(age_area, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(departmant_area)
+                                            .addComponent(gender_area, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addComponent(massage_write, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(596, 596, 596)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(addWorker, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(workerUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(screenRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(workerDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(massage_write, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, 1278, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1312, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(name_area, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(surname_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(password_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addWorker, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(workerUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(gender_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(age_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(adress_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(telephone_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(departmant_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addComponent(massage_write, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(workerDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(screenRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(55, 55, 55)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addWorker, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(workerUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(screenRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(name_area, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(surname_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(gender_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(age_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(adress_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(telephone_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(departmant_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addComponent(massage_write, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -298,7 +287,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         massage_write.setText("");
         String name = name_area.getText();
         String surname = surname_area.getText();
-        String password = password_area.getText();
+        //String password = password_area.getText();
         String departmant = departmant_area.getText();
         String gender = gender_area.getText();
         String age = age_area.getText();
@@ -306,7 +295,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         String adress = adress_area.getText();
         String tel_no = telephone_area.getText();
         
-        transactions.workerAdd(name, surname, password, departmant,gender, ageInt, adress, tel_no);
+        transactions.workerAddAssistant(name, surname, departmant,gender, ageInt, adress, tel_no);
 
         workerShow();
 
@@ -350,7 +339,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         int ageInt = Integer.parseInt(age);
         String adress = adress_area.getText();
         String tel_no = telephone_area.getText();
-        String password = password_area.getText();
+        //String password = password_area.getText();
         
         int selectedrow = workers_table.getSelectedRow();
         
@@ -365,7 +354,7 @@ public class EmployeesScreen extends javax.swing.JDialog {
         else{
             int id = (int)model.getValueAt(selectedrow, 0);
             
-            transactions.workerUpdate(id,name,surname,password,departmant,gender,ageInt,adress,tel_no);
+            transactions.workerUpdateAssistant(id,name,surname,departmant,gender,ageInt,adress,tel_no);
         
             workerShow();
 
@@ -379,19 +368,19 @@ public class EmployeesScreen extends javax.swing.JDialog {
         
         name_area.setText(model.getValueAt(selectedrow, 1).toString());
         surname_area.setText(model.getValueAt(selectedrow, 2).toString());
-        password_area.setText(model.getValueAt(selectedrow, 3).toString());
-        gender_area.setText(model.getValueAt(selectedrow, 4).toString());
-        age_area.setText(model.getValueAt(selectedrow, 5).toString());
-        departmant_area.setText(model.getValueAt(selectedrow, 6).toString());
-        adress_area.setText(model.getValueAt(selectedrow, 7).toString());
-        telephone_area.setText(model.getValueAt(selectedrow, 8).toString());
+        //password_area.setText(model.getValueAt(selectedrow, 3).toString());
+        gender_area.setText(model.getValueAt(selectedrow, 3).toString());
+        age_area.setText(model.getValueAt(selectedrow, 4).toString());
+        departmant_area.setText(model.getValueAt(selectedrow, 5).toString());
+        adress_area.setText(model.getValueAt(selectedrow, 6).toString());
+        telephone_area.setText(model.getValueAt(selectedrow, 7).toString());
     }//GEN-LAST:event_workers_tableMouseClicked
 
     private void screenRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenRefreshActionPerformed
         // TODO add your handling code here:
         name_area.setText("");
         surname_area.setText("");
-        password_area.setText("");
+        //password_area.setText("");
         gender_area.setText("");
         age_area.setText("");
         departmant_area.setText("");
@@ -402,20 +391,21 @@ public class EmployeesScreen extends javax.swing.JDialog {
         workerShow();
     }//GEN-LAST:event_screenRefreshActionPerformed
 
-    private void workerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workerDeleteActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_workerDeleteActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_logoutButtonActionPerformed
     
     
     public void workerShow(){
         model.setRowCount(0);
-        ArrayList<Worker> workers = new ArrayList<Worker>();
+        ArrayList<ModulForAssistant> workers = new ArrayList<ModulForAssistant>();
         
         workers = transactions.workerExtraction();
         
         if(workers != null){
-            for(Worker worker : workers){
-                Object[] beAdded = {worker.getId(),worker.getName(),worker.getSurname(),worker.getPassw(),worker.getGender(),worker.getAge(),worker.getDepartmant(),worker.getAdress(),worker.getTel_no()};
+            for(ModulForAssistant worker : workers){
+                Object[] beAdded = {worker.getId(),worker.getName(),worker.getSurname(),worker.getGender(),worker.getAge(),worker.getDepartmant(),worker.getAdress(),worker.getTel_no()};
                 
                 model.addRow(beAdded);
                 
@@ -441,20 +431,21 @@ public class EmployeesScreen extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeesScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeesScreenForAssistant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeesScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeesScreenForAssistant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeesScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeesScreenForAssistant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeesScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeesScreenForAssistant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EmployeesScreen dialog = new EmployeesScreen(new javax.swing.JFrame(), true);
+                EmployeesScreenForAssistant dialog = new EmployeesScreenForAssistant(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -477,18 +468,16 @@ public class EmployeesScreen extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel massage_write;
     private javax.swing.JTextField name_area;
-    private javax.swing.JTextField password_area;
     private javax.swing.JButton screenRefresh;
     private javax.swing.JTextField search_box;
     private javax.swing.JTextField surname_area;
     private javax.swing.JTextField telephone_area;
-    private javax.swing.JButton workerDelete;
     private javax.swing.JButton workerUpdate;
     private javax.swing.JTable workers_table;
     // End of variables declaration//GEN-END:variables
